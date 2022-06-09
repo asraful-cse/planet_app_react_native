@@ -6,12 +6,17 @@ import { colors } from "../theme/colors";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-export default function PlanetHeader({backBtn, title="THE PLANETS"}) {
+export default function PlanetHeader({ backBtn, title = "THE PLANETS" }) {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
       {backBtn && (
-        <Pressable style={{ marginRight: spacing[4] }} onPress={() => {navigation.goBack()}}>
+        <Pressable
+          style={{ marginRight: spacing[4] }}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
           <AntDesign name="left" size={24} color="white" />
         </Pressable>
       )}
@@ -19,7 +24,6 @@ export default function PlanetHeader({backBtn, title="THE PLANETS"}) {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     marginTop: spacing[8],
@@ -27,6 +31,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.2,
     borderBottomColor: colors.white,
     flexDirection: "row",
-    alignItems:'center'
+    alignItems: "center",
   },
 });

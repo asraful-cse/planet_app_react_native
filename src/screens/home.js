@@ -13,7 +13,53 @@ import { colors } from "../theme/colors";
 import { PLANET_LIST } from "../data/planet-list";
 import { spacing } from "../theme/spacing";
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+
+// ----------------------------------------------------------------------
+const PlanetItem = ({ item}) => {
+  const {name, color} = item;
+  const navigation = useNavigation()
+  return (
+    <Pressable
+      onPress={() => {
+        navigation.navigate("Details", { planet: item });
+      }}
+      style={styles.item}
+    >
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View style={[styles.circle, { backgroundColor: color }]}></View>
+        <Text style={styles.itemName} preset="h4">
+          {name}
+        </Text>
+      </View>
+      <AntDesign name="right" size={16} color="white" />
+    </Pressable>
+  );
+};
+// -----------------------------------------------------------------------
+// -----------------------------------------------------------------------
+
 export default function Home({ navigation }) {
+  const renderItem = ({ item }) => {
+    return <PlanetItem item={item}/>
+
+    // (
+    //   <Pressable
+    //     onPress={() => {
+    //       navigation.navigate("Details", { planet: item });
+    //     }}
+    //     style={styles.item}
+    //   >
+    //     <View style={{ flexDirection: "row", alignItems: "center" }}>
+    //       <View style={[styles.circle, { backgroundColor: color }]}></View>
+    //       <Text style={styles.itemName} preset="h4">
+    //         {name}
+    //       </Text>
+    //     </View>
+    //     <AntDesign name="right" size={16} color="white" />
+    //   </Pressable>
+    // );
+  };
   return (
     <SafeAreaView style={styles.container}>
       <PlanetHeader />
@@ -21,32 +67,15 @@ export default function Home({ navigation }) {
         contentContainerStyle={styles.list}
         data={PLANET_LIST}
         keyExtractor={(item) => item.name}
-        renderItem={({ item, index }) => {
-          const { name, color } = item;
-          return (
-            <Pressable
-              onPress={() => {
-                navigation.navigate("Details", { planet: item });
-              }}
-              style={styles.item}
-            >
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <View
-                  style={[styles.circle, { backgroundColor: color }]}
-                ></View>
-                <Text style={styles.itemName} preset="h4">
-                  {name}
-                </Text>
-              </View>
-              <AntDesign name="right" size={16} color="white" />
-            </Pressable>
-          );
-        }}
+        renderItem={renderItem}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
       />
     </SafeAreaView>
   );
 }
+
+// ----------------stylesheet------------------------------------------------------
+// --------------------------------------------------------------------------------
 
 const styles = StyleSheet.create({
   container: {
