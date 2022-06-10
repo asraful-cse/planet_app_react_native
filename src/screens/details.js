@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: spacing[6],
     paddingVertical: spacing[4],
-    borderColor:colors.white,
     marginHorizontal: spacing[6],
     marginBottom: spacing[4],
+    borderBottomColor:colors.white
   },
 });
